@@ -9,10 +9,15 @@
       <bpmn:outgoing>Flow_0zdy3jh</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_1a9l2aa" name="End">
-      <bpmn:incoming>Flow_0zdy3jh</bpmn:incoming>
+      <bpmn:incoming>Flow_09kyj88</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1ossezp" sourceRef="StartEvent_1" targetRef="myServiceTask" />
-    <bpmn:sequenceFlow id="Flow_0zdy3jh" sourceRef="myServiceTask" targetRef="Event_1a9l2aa" />
+    <bpmn:sequenceFlow id="Flow_0zdy3jh" sourceRef="myServiceTask" targetRef="Activity_1euq3eu" />
+    <bpmn:sequenceFlow id="Flow_09kyj88" sourceRef="Activity_1euq3eu" targetRef="Event_1a9l2aa" />
+    <bpmn:userTask id="Activity_1euq3eu" name="My user task" camunda:candidateUsers="admin">
+      <bpmn:incoming>Flow_0zdy3jh</bpmn:incoming>
+      <bpmn:outgoing>Flow_09kyj88</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="myProcessId">
@@ -26,10 +31,14 @@
         <dc:Bounds x="250" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l30997_di" bpmnElement="Activity_1euq3eu">
+        <dc:Bounds x="390" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1a9l2aa_di" bpmnElement="Event_1a9l2aa">
-        <dc:Bounds x="382" y="102" width="36" height="36" />
+        <dc:Bounds x="852" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="390" y="145" width="20" height="14" />
+          <dc:Bounds x="860" y="145" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ossezp_di" bpmnElement="Flow_1ossezp">
@@ -38,7 +47,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zdy3jh_di" bpmnElement="Flow_0zdy3jh">
         <di:waypoint x="350" y="120" />
-        <di:waypoint x="382" y="120" />
+        <di:waypoint x="390" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09kyj88_di" bpmnElement="Flow_09kyj88">
+        <di:waypoint x="490" y="120" />
+        <di:waypoint x="852" y="120" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
