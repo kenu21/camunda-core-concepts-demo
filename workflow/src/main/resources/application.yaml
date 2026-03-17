@@ -1,3 +1,9 @@
 spring:
   application:
     name: workflow
+
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: admin
