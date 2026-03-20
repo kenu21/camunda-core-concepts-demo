@@ -1,4 +1,4 @@
-package com.keniu;
+package com.keniu.controllers;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ public class WorkflowController {
 
     @PostMapping("/start")
     public String start() {
-        runtimeService.startProcessInstanceByKey("myProcessId");
+        runtimeService.startProcessInstanceByKey("myProcessId", "47");
         return "started";
     }
 }
