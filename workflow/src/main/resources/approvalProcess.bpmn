@@ -4,7 +4,14 @@
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>Flow_0wt4m53</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Activity_1992xgc" name="My user task">
+    <bpmn:userTask id="Activity_1992xgc" name="My user task" camunda:candidateUsers="admin">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="approved" label="Approve" type="boolean" defaultValue="true">
+            <camunda:validation />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0wt4m53</bpmn:incoming>
       <bpmn:outgoing>Flow_0hzv668</bpmn:outgoing>
     </bpmn:userTask>
