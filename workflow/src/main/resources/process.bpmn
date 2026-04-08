@@ -29,10 +29,9 @@
       <bpmn:incoming>Flow_0zdy3jh</bpmn:incoming>
       <bpmn:outgoing>Flow_09kyj88</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_0o6sxer" sourceRef="Activity_0q9o5r2" targetRef="Event_0dg60ar" />
     <bpmn:scriptTask id="Activity_0q9o5r2" name="My script task">
       <bpmn:incoming>Flow_09kyj88</bpmn:incoming>
-      <bpmn:outgoing>Flow_0o6sxer</bpmn:outgoing>
+      <bpmn:outgoing>Flow_17h6u4i</bpmn:outgoing>
       <bpmn:script>def number = execution.getVariable("myVariable")
 def processed = "Processed: " + number
 execution.setVariable("processedNumber", processed)</bpmn:script>
@@ -45,7 +44,7 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0qo4n5v" sourceRef="Event_0dg60ar" targetRef="Gateway_1h0dz09" />
     <bpmn:intermediateCatchEvent id="Event_0dg60ar" name="My message intermidiate catch event">
-      <bpmn:incoming>Flow_0o6sxer</bpmn:incoming>
+      <bpmn:incoming>Flow_0tnv1uo</bpmn:incoming>
       <bpmn:outgoing>Flow_0qo4n5v</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0j4skoa" messageRef="Message_1js0h8h" />
     </bpmn:intermediateCatchEvent>
@@ -64,10 +63,10 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
       <bpmn:outgoing>Flow_1jnh2vf</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_1jnh2vf" sourceRef="Gateway_1h0dz09" targetRef="Activity_0oqrx88" />
-    <bpmn:subProcess id="Activity_1vcfciw">
+    <bpmn:subProcess id="Activity_1vcfciw" name="My sub-process (expanded)">
       <bpmn:incoming>Flow_08bpg9y</bpmn:incoming>
       <bpmn:outgoing>Flow_1u3p4z6</bpmn:outgoing>
-      <bpmn:startEvent id="Event_1uj4ci1">
+      <bpmn:startEvent id="Event_1uj4ci1" name="My  start">
         <bpmn:outgoing>Flow_0jl1b2n</bpmn:outgoing>
       </bpmn:startEvent>
       <bpmn:intermediateCatchEvent id="Event_1aq2lxa" name="My timer intermediate catch event">
@@ -86,7 +85,7 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
         <bpmn:incoming>Flow_04cz3ly</bpmn:incoming>
         <bpmn:outgoing>Flow_1g5j649</bpmn:outgoing>
       </bpmn:businessRuleTask>
-      <bpmn:endEvent id="Event_0sw3sdn">
+      <bpmn:endEvent id="Event_0sw3sdn" name="My end">
         <bpmn:incoming>Flow_1g5j649</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_0jl1b2n" sourceRef="Event_1uj4ci1" targetRef="Event_1aq2lxa" />
@@ -96,6 +95,18 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_08bpg9y" sourceRef="Event_1plndrg" targetRef="Activity_1vcfciw" />
     <bpmn:sequenceFlow id="Flow_1u3p4z6" sourceRef="Activity_1vcfciw" targetRef="Event_1a9l2aa" />
+    <bpmn:intermediateThrowEvent id="Event_0r3mhfb" name="My message intermediate throw event">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.keniu.listeners.MessageThrowListener" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17h6u4i</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tnv1uo</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1jx0ge6" messageRef="Message_1js0h8h">
+        <bpmn:extensionElements />
+      </bpmn:messageEventDefinition>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_17h6u4i" sourceRef="Activity_0q9o5r2" targetRef="Event_0r3mhfb" />
+    <bpmn:sequenceFlow id="Flow_0tnv1uo" sourceRef="Event_0r3mhfb" targetRef="Event_0dg60ar" />
   </bpmn:process>
   <bpmn:message id="Message_1js0h8h" name="My message" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -131,7 +142,7 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
       <bpmndi:BPMNShape id="Event_05cljnl_di" bpmnElement="Event_0dg60ar">
         <dc:Bounds x="602" y="222" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="577" y="265" width="87" height="40" />
+          <dc:Bounds x="576" y="172" width="87" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_15y2rgl_di" bpmnElement="Event_1plndrg">
@@ -146,11 +157,21 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
           <dc:Bounds x="674" y="272" width="54" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1mtqa7g_di" bpmnElement="Event_0r3mhfb">
+        <dc:Bounds x="512" y="332" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="499" y="375" width="63" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_19vdnzy_di" bpmnElement="Activity_1vcfciw" isExpanded="true">
         <dc:Bounds x="880" y="140" width="560" height="200" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1uj4ci1_di" bpmnElement="Event_1uj4ci1">
         <dc:Bounds x="920.3333333333333" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="919" y="265" width="40" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05q0s4f_di" bpmnElement="Event_1aq2lxa">
         <dc:Bounds x="1002" y="222" width="36" height="36" />
@@ -168,6 +189,9 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0sw3sdn_di" bpmnElement="Event_0sw3sdn">
         <dc:Bounds x="1362" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1362" y="265" width="37" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0jl1b2n_di" bpmnElement="Flow_0jl1b2n">
         <di:waypoint x="956" y="240" />
@@ -193,10 +217,6 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
         <di:waypoint x="320" y="240" />
         <di:waypoint x="350" y="240" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0o6sxer_di" bpmnElement="Flow_0o6sxer">
-        <di:waypoint x="580" y="240" />
-        <di:waypoint x="602" y="240" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qo4n5v_di" bpmnElement="Flow_0qo4n5v">
         <di:waypoint x="638" y="240" />
         <di:waypoint x="675" y="240" />
@@ -220,6 +240,15 @@ execution.setVariable("processedNumber", processed)</bpmn:script>
       <bpmndi:BPMNEdge id="Flow_1u3p4z6_di" bpmnElement="Flow_1u3p4z6">
         <di:waypoint x="1440" y="240" />
         <di:waypoint x="1592" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17h6u4i_di" bpmnElement="Flow_17h6u4i">
+        <di:waypoint x="530" y="280" />
+        <di:waypoint x="530" y="332" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tnv1uo_di" bpmnElement="Flow_0tnv1uo">
+        <di:waypoint x="548" y="350" />
+        <di:waypoint x="620" y="350" />
+        <di:waypoint x="620" y="258" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
